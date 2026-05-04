@@ -119,6 +119,43 @@ SUB_STORE_BACKEND_API_PORT=3000 pnpm run --parallel "/^dev:.*/"
 pnpm bundle:esbuild
 ```
 
+### Docker Compose Deployment
+
+This fork includes an all-in-one Docker image that builds the Node backend and
+the official Sub-Store frontend, then serves both from the same port.
+
+```
+cp .env.example .env
+docker compose up -d --build
+```
+
+Open the web UI at:
+
+```
+http://SERVER_IP:3000
+```
+
+Change `SUB_STORE_PORT` in `.env` if you need another host port. Runtime data is
+stored in the `sub-store-data` Docker volume at `/opt/sub-store/data`, so
+subscriptions, collections, artifacts, files, share tokens, and settings survive
+container recreation.
+
+The container uses `/api` as the frontend backend path. The UI can be opened
+directly by IP and port, and generated share/download links can be used by proxy
+clients as an online subscription service.
+
+Useful commands:
+
+```
+docker compose logs -f
+docker compose restart
+docker compose down
+```
+
+For public Internet exposure, put the service behind TLS and access control.
+Sub-Store's management UI is an administration surface, while generated
+share/download links are intended for subscription clients.
+
 ## LICENSE
 
 This project is under the GPL V3 LICENSE.

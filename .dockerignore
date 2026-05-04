@@ -1,0 +1,13 @@
+.git
+.github
+.codex-tmp
+node_modules
+backend/node_modules
+backend/dist/*
+!backend/dist/.gitkeep
+backend/sub-store.min.js
+data
+*.log
+.env
+.env.*
+!.env.example
